@@ -1,1 +1,25 @@
 /* Add CSS Styling */
+.cnum{
+    background-color: rgb(241, 157, 171);
+    color: black;
+    font-family: verdana, "DejaVu Sans", sans-serif;
+
+}
+
+#num2{
+    font-size: 36px;
+    color: blue;
+
+}
+
+
+.adjust-font{
+    font-size: 24px;
+}
+
+
+
+#num4{
+    background-color: lightgreen;
+    font-weight: bold;
+}

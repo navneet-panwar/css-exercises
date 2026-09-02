@@ -8,10 +8,17 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <p>Number 1 - I'm a class!</p>
-    <div>Number 2 - I'm one ID.</div>
-    <p>Number 3 - I'm a class, but cooler!</p>
-    <div>Number 4 - I'm another ID.</div>
-    <p>Number 5 - I'm a class!</p>
+    <p class="cnum">Number 1 - I'm a class!</p>
+    <div id="num2">Number 2 - I'm one ID.</div>
+
+    
+       <!-- i provided 2 classes ( "cnum" and "adjust-font") to Number 3 , the extra one was for the same font size i.e 24px required in both Number 3 & Number 5 
+
+       so i created class= "adjust-font" for Number 5 and used same class for Number 3 too alongside class "cnum" which Number 3 was already having.
+        -->
+    <p class="cnum adjust-font">Number 3 - I'm a class, but cooler!</p>
+    <div id="num4" class="adjust-font">Number 4 - I'm another ID.</div>
+    
+    <p class="cnum">Number 5 - I'm a class!</p>
   </body>
 </html>
