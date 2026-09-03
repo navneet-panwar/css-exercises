@@ -1,1 +1,25 @@
 /* Add CSS Styling */
+
+.me{
+    color: white;
+    background-color: black ;
+}
+
+.notme{
+    color: black;
+    background-color: yellow ;
+
+}
+
+/*
+ when i want to apply some properties which are common in two or more unique classes , then i use this syntax 
+ 
+ .classname1, .classname2
+
+*/ 
+.me,
+.notme{
+    font-size:28px;
+    font-family:  Helvetica, "Times New Roman", sans-serif;
+
+}
