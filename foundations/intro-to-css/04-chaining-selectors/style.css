@@ -1,1 +1,58 @@
-/* Add CSS Styling */
+
+
+/*
+.avatar.proportioned
+
+tells the browser:
+Target only images that have both 'avatar' AND 'proportioned' classes on the same tag.
+
+
+.avatar.distorted
+
+Target only images that have both 'avatar' AND 'distorted' classes on the same tag.
+
+Any element with just the avatar class is safely ignored.
+so basically chaining act as an AND rule
+*/
+
+
+/* Styles ONLY avatars that ALSO have the proportioned class */
+.avatar.proportioned {
+  width: 300px;
+  height: auto;
+}
+
+/* Styles ONLY avatars that ALSO have the distorted class */
+.avatar.distorted {
+  width: 200px;
+  height: 400px;
+}
+
+/* 
+
+WHY GROUPING FAILS HERE (.avatar, .proportioned)
+Grouping uses a comma (,) which acts as an OR rule.
+
+If you wrote:
+
+
+.avatar, .proportioned {
+  width: 300px;
+}
+This tells the browser to style every element with class avatar OR class proportioned. 
+
+
+  - It would target EVERY .avatar element, accidentally resizing 
+    the original images we were instructed NOT to touch. because they also have avatar class
+*/
+
+
+/*
+basically
+
+.avatar, .proportioned
+means any element containing atleast one of the targated class ( either avatar OR proportioned ) will get selected
+
+.avatar.proportioned
+means only those elements which have both the selected class ( avatar and proportion ) will get selected 
+*/
