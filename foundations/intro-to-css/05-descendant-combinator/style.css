@@ -1,1 +1,82 @@
 /* Add CSS Styling */
+
+/* 
+  THEORY: DESCENDANT COMBINATOR (Space ' ')
+  
+  - Syntax: ancestor descendant { 
+            
+             }
+  - Logic: Selects any <p> element that is nested INSIDE a <div> element.
+  - Why a space? In CSS, a space means "is a child/grandchild of".
+  - Result: Any <p> outside of a <div> remains untouched and unstyled.
+*/
+
+div p {
+  background-color: yellow;
+  color: red;
+  font-size: 20px;
+  text-align: center;
+}
+
+
+/* --------------------------------------------------------------------------
+   METHOD 1: Type + Type (div p)
+   - LOGIC: Selects any <p> tag nested inside any <div> tag.
+   - USE CASE: Pure HTML element targeting without relying on class names.
+   -------------------------------------------------------------------------- */
+div p {
+  background-color: yellow;
+  color: red;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   METHOD 2: Class + Class (.container .text)
+   - LOGIC: Selects any element with class "text" inside an element with class "container".
+   - USE CASE: Pure class-based styling. Won't break if you swap <div> or <p> for other HTML tags later.
+   -------------------------------------------------------------------------- */
+.container .text {
+  background-color: yellow;
+  color: red;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   METHOD 3: Class + Type (.container p)
+   - LOGIC: Selects any <p> tag nested inside an element with class "container".
+   - USE CASE: Styles all paragraph tags inside a specific reusable component container.
+   -------------------------------------------------------------------------- */
+.container p {
+  background-color: yellow;
+  color: red;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   METHOD 4: Type + Class (div .text)
+   - LOGIC: Selects any element with class "text" nested inside a <div> tag.
+   - USE CASE: Combines a generic tag container with a specific child class target.
+   -------------------------------------------------------------------------- */
+div .text {
+  background-color: yellow;
+  color: red;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   METHOD 5: Child Combinator (.container > .text  OR  div > p)
+   - LOGIC: The '>' symbol targets ONLY direct children of the parent.
+   - KEY DIFFERENCE: Descendant (space) targets ALL descendants (children, 
+     grandchildren, great-grandchildren). Child (>) stops at 1 level deep.
+   - NOTE: Works here because all styled <p> elements are direct children of the <div>.
+   -------------------------------------------------------------------------- */
+.container > .text {
+  background-color: yellow;
+  color: red;
+  font-size: 20px;
+  text-align: center;
+}
