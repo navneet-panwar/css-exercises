@@ -1,0 +1,76 @@
+/* ==========================================================================
+   SPECIFICITY SCORE FORMULA: ( IDs , Classes , Tags )
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   SLOT 1: IDs (#id)
+   - Every #id selector adds 1 to the left slot.
+   -------------------------------------------------------------------------- */
+
+#confirm-button {
+  /* Score: (1, 0, 0)
+     Calculation: 1 ID, 0 Classes, 0 Tags */
+  background-color: green;
+}
+
+
+/* --------------------------------------------------------------------------
+   SLOT 2: CLASSES (.class, [attributes], :pseudo-classes)
+   - Every .class selector adds 1 to the middle slot.
+   -------------------------------------------------------------------------- */
+
+.button {
+  /* Score: (0, 1, 0)
+     Calculation: 0 IDs, 1 Class, 0 Tags */
+  font-size: 20px;
+}
+
+.para.small-para {
+  /* Score: (0, 2, 0)
+     Calculation: 0 IDs, 2 Classes, 0 Tags
+     Note: Chaining two classes adds them together! */
+  font-size: 14px;
+}
+
+
+/* --------------------------------------------------------------------------
+   SLOT 3: TAGS (p, div, button, h1)
+   - Every tag selector adds 1 to the right slot.
+   -------------------------------------------------------------------------- */
+
+p {
+  /* Score: (0, 0, 1)
+     Calculation: 0 IDs, 0 Classes, 1 Tag */
+  color: black;
+}
+
+div.text {
+  /* Score: (0, 1, 1)
+     Calculation: 0 IDs, 1 Class, 1 Tag */
+  font-size: 22px;
+}
+
+div.text.child {
+  /* Score: (0, 2, 1)
+     Calculation: 0 IDs, 2 Classes, 1 Tag */
+  font-size: 14px;
+}
+
+
+/* ==========================================================================
+   HOW SCORES ARE COMPARED (LEFT TO RIGHT)
+   ==========================================================================
+   
+   RULE 1 (IDs): Check Slot 1 first.
+   - (1, 0, 0) beats (0, 5, 5)
+   - Reason: 1 ID always beats any number of classes or tags.
+
+   RULE 2 (Classes): If IDs are equal, check Slot 2.
+   - (0, 2, 0) beats (0, 1, 5)
+   - Reason: 2 classes beat 1 class + 5 tags.
+
+   RULE 3 (Tags): If IDs and Classes are equal, check Slot 3.
+   - (0, 1, 1) beats (0, 1, 0)
+   - Reason: 1 class + 1 tag beats just 1 class.
+
+   ========================================================================== */

@@ -1,9 +1,11 @@
+/*ORIGINAL*/
+/*
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .para,
-.small-para {
+.small-para { 
   color: hsl(0, 0%, 0%);
   font-weight: 800;
 }
@@ -40,3 +42,258 @@ div.text {
   font-size: 22px;
   font-weight: 100;
 }
+
+*/
+/* read specificty score.css ( created by me) */
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*changes start below*/
+
+.para,
+.small-para {
+  color: hsl(0, 0%, 0%);
+  font-weight: 800;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 1. SMALL PARAGRAPH FIX                                                      */
+/* -------------------------------------------------------------------------- */
+/* ORIGINAL LACKING CODE: 
+   .small-para { ... }
+   WHY IT FAILED: Tied with .para at (0, 1, 0) and lost due to being placed 
+   higher up in the file.
+
+   FIX: Change .small-para to .para.small-para
+   THEORY: Chaining two class selectors gives a score of (0, 2, 0). 
+   (0, 2, 0) beats .para's score of (0, 1, 0), so order no longer matters.
+*/
+.para.small-para {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.para {
+  font-size: 22px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. CONFIRM BUTTON FIX                                                       */
+/* -------------------------------------------------------------------------- */
+/* ORIGINAL LACKING CODE: 
+   .confirm { ... }
+   WHY IT FAILED: Tied with .button at (0, 1, 0) and lost due to being placed 
+   higher up in the file.
+
+   FIX: Change .confirm to #confirm-button
+   THEORY: Using an ID selector gives a score of (1, 0, 0). 
+   An ID score of (1, 0, 0) easily beats a class score of (0, 1, 0).
+*/
+#confirm-button {
+  background: green;
+  color: white;
+  font-weight: bold;
+} 
+
+.button { 
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. CHILD DIV FIX                                                            */
+/* -------------------------------------------------------------------------- */
+/* ORIGINAL LACKING CODE: 
+   .child { ... }
+   WHY IT FAILED: .child had 1 class (0, 1, 0), which lost to div.text's 
+   1 class + 1 tag (0, 1, 1).
+
+   FIX: Change .child to .child.text
+   THEORY: Chaining two class selectors gives a score of (0, 2, 0). 
+   (0, 2, 0) beats div.text's score of (0, 1, 1) because 2 classes beat 1 class + 1 tag.
+*/
+.child.text {
+  color: rgb(0, 0, 0);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+div.text {
+  color: rgb(0, 0, 0);
+  font-size: 22px;
+  font-weight: 100;
+}
+
+
+
+
+
+
+/*
+Method 2: Reordering Rules (Fixing by Position)
+Instead of adding extra classes or IDs, you can fix the styling by moving declaration blocks lower down in the file.
+*/
+
+
+/* -------------------------------------------------------------------------- */
+/* 1. SMALL PARAGRAPH FIX                                                      */
+/* -------------------------------------------------------------------------- */
+.para {
+  font-size: 22px;
+}
+
+/* ORIGINAL LACKING CODE: 
+   .small-para was written ABOVE .para in the file.
+   WHY IT FAILED: Both had equal specificity (0, 1, 0). Because .para was lower, 
+   its 22px font size overwrote .small-para's 14px font size.
+
+   FIX: Move .small-para BELOW .para.
+   THEORY: When two selectors tie in specificity, the rule closer to the 
+   bottom of the file wins (Cascade Round 4: Position).
+*/
+.small-para {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. CONFIRM BUTTON FIX                                                       */
+/* -------------------------------------------------------------------------- */
+.button { 
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+}
+
+/* ORIGINAL LACKING CODE: 
+   .confirm was written ABOVE .button in the file.
+   WHY IT FAILED: Both had equal specificity (0, 1, 0). Because .button was lower, 
+   its white background overwrote .confirm's green background.
+
+   FIX: Move .confirm BELOW .button.
+   THEORY: Both rules tie at (0, 1, 0), so moving .confirm to the bottom 
+   makes it win by Position.
+*/
+.confirm { 
+  background: green;
+  color: white;
+  font-weight: bold;
+}
+
+/* ------------------------------------------------------------------- */
+/* 3. CHILD DIV FIX  */
+/* -------------------------------------------------------------------------- */
+div.text {
+  color: rgb(0, 0, 0);
+  font-size: 22px;
+  font-weight: 100;
+}
+
+/* ORIGINAL LACKING CODE: 
+   .child { ... }
+   WHY IT FAILED: .child was (0, 1, 0). div.text was (0, 1, 1) because it had 
+   1 class + 1 tag. div.text won because 1 tag is better than 0 tags.
+
+   FIX: Change .child to div.child AND place it BELOW div.text.
+   THEORY: div.child gives (0, 1, 1), which ties with div.text (0, 1, 1). 
+   Placing it below div.text lets it win the tie-breaker by Position.
+*/
+div.child {
+  color: rgb(0, 0, 0);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+
+
+
+
+/*
+Method 3: Adding HTML Tags (Fixing by Specificity)
+
+Instead of moving code around, you can add tag names (like p, button, or div) to the front of selectors to make them slightly stronger.
+*/
+
+/*-------------------------------------------------------------------- */
+/* 1. SMALL PARAGRAPH FIX */
+/* ------------------------------------------------------------------- */
+/* ORIGINAL LACKING CODE: 
+   .small-para { ... }
+   WHY IT FAILED: Tied with .para at (0, 1, 0) and lost due to being higher up.
+
+   FIX: Change .small-para to p.small-para
+   THEORY: p.small-para has 1 tag + 1 class = (0, 1, 1). 
+   (0, 1, 1) beats .para's (0, 1, 0), so order no longer matters.
+*/
+p.small-para {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.para {
+  font-size: 22px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. CONFIRM BUTTON FIX                                                       */
+/* -------------------------------------------------------------------------- */
+/* ORIGINAL LACKING CODE: 
+   .confirm { ... }
+   WHY IT FAILED: Tied with .button at (0, 1, 0) and lost due to being higher up.
+
+   FIX: Change .confirm to button.confirm
+   THEORY: button.confirm has 1 tag + 1 class = (0, 1, 1). 
+   (0, 1, 1) beats .button's (0, 1, 0).
+*/
+button.confirm { 
+  background: green;
+  color: white;
+  font-weight: bold;
+} 
+
+.button { 
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. CHILD DIV FIX                                                            */
+/* -------------------------------------------------------------------------- */
+/* ORIGINAL LACKING CODE: 
+   .child { ... }
+   WHY IT FAILED: .child had 1 class (0, 1, 0), which lost to div.text's 1 class + 1 tag (0, 1, 1).
+
+   FIX: Change .child to div.text.child
+   THEORY: div.text.child has 1 tag + 2 classes = (0, 2, 1). 
+   (0, 2, 1) easily beats div.text's score of (0, 1, 1).
+*/
+div.text.child {
+  color: rgb(0, 0, 0);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+div.text {
+  color: rgb(0, 0, 0);
+  font-size: 22px;
+  font-weight: 100;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
